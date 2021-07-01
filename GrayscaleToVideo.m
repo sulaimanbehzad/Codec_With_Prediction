@@ -3,7 +3,7 @@ close all;
 clc;
 inputPath = 'C:\Users\lenovo\Documents\MATLAB\Video-Codec\recreated';
 vidWriter = VideoWriter('RecreatedVideo');
-vidWriter.FrameRate = 1;
+vidWriter.FrameRate = 25;
 % secsPerImage = 5;
 open(vidWriter);
 
