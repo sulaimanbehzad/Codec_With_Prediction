@@ -6,7 +6,7 @@
 % which has the less SAD. Prediction error is calclated by the difference %
 % of the original image and the image poited by the motion vector         %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [motion,pred_err]=MotionEstimation(im_old,im_new,i,j,N)
+function [pred_im,pred_err]=MotionEstimation(im_old,im_new,i,j,N)
 rows=i+N-1;cols=j+N-1; % incrementing N coz of image increase due to replication
     SAD = 1.0e+10;% initial Cumulative Absolute Difference(CAD)
     for u = -N:N
