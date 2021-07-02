@@ -6,7 +6,7 @@
 %The function returns the reconstructed block                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function rim_intra=IntraPredictionR(im_recons,i,j,N)
-rows=i;cols=j;
+rows=i+N; cols=j+N;
 for k=1:2*N
     T(k)=double(im_recons(rows-1,cols+k-1)); %TOP pixels above the block
     L(k)=double(im_recons(rows+k-1,cols-1)); %LEFT pixels before the block

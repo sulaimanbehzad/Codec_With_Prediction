@@ -6,8 +6,8 @@ imageFiles = dir('grayscale/*.png');
 nImages = length(imageFiles);
 imageDir = imageFiles.folder;
 % initialize frames
-iFrame=uint8(zeros(528,528));
-pFrame=uint8(zeros(528,528));
+iFrame=double(zeros(528,528));
+pFrame=double(zeros(528,528));
 for cnt=1:nImages
 %     Dimensions for DCT blocksize
     A=8;
@@ -36,19 +36,22 @@ for cnt=1:nImages
         curDct=ComputeDCT(iFrame, A, B, imX, imY);
         curZigZag = ComputeZigZag(curDct, A, B, imX, imY, 8, 8);
         curRunLength = RunLength(curZigZag, A, B, imX, imY);
-        save(['runlength/iFrames/' imageFiles(cnt).name '.mat'], 'curRunLength');
+        save(['runlength/' imageFiles(cnt).name '.mat'], 'curRunLength');
     else
         for j=1:N:imX
             for k=1:N:imY
-                [blockP,pred_err]=MotionEstimation(iFrame,uint8(curPaddedImage),j,k,N);
-%                 recons_p = MotionEstimationR(iFrame,uint8(blockP),pred_err,j,k,N);
-                pFrame(j:j+N-1, k:k+N-1)=blockP;
+                [blockP,pred_err]=MotionEstimation(double(iFrame),double(curPaddedImage),j,k,N);
+%                 recons_p = MotionEstimationR(double(iFrame),double(blockP),pred_err,j,k,N);
+%                 pFrame(j:j+N-1, k:k+N-1)=recons_p;
+                pInfo(j,k).motion = blockP;
+                pInfo(j,k).pred_err = pred_err;
             end
         end
 %         [pFrame,pred_err]=MotionEstimation(iFrame,curImage,imX,imY,N);
-        curDct=ComputeDCT(pFrame, A, B, imX, imY);
-        curZigZag = ComputeZigZag(curDct, A, B, imX, imY, 8, 8);
-        curRunLength = RunLength(curZigZag, A, B, imX, imY);
-        save(['runlength/pFrames/' imageFiles(cnt).name '.mat'], 'curRunLength');
+%         curDct=ComputeDCT(pFrame, A, B, imX, imY);
+%         curZigZag = ComputeZigZag(curDct, A, B, imX, imY, 8, 8);
+%         curRunLength = RunLength(curZigZag, A, B, imX, imY);
+%         save(['runlength/' imageFiles(cnt).name '.mat'], 'curRunLength');
+        save(['runlength/'  imageFiles(cnt).name '.mat'], 'pInfo');
     end
 end
