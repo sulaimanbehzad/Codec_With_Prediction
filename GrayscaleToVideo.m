@@ -1,7 +1,7 @@
 clear;
 close all;
 clc;
-inputPath = 'C:\Users\lenovo\Documents\MATLAB\Video-Codec\recreated';
+inputPath = 'C:\Users\lenovo\Documents\MATLAB\Codec_With_Prediction\recreated';
 vidWriter = VideoWriter('RecreatedVideo');
 vidWriter.FrameRate = 25;
 % secsPerImage = 5;
@@ -17,7 +17,7 @@ for i=1:nFiles
     images{i} = imread(curFileName);
 end
 for k=1:length(images)
-    rgbImage = zeros(512, 512, 3);
+    rgbImage = zeros(528, 528, 3);
     rgbImage(:,:,1)=images{k};
     rgbImage(:,:,2)=images{k};
     rgbImage(:,:,3)=images{k};
