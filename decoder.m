@@ -6,7 +6,7 @@ encodedFiles = dir('runlength/*.mat');
 nFiles = length(encodedFiles);
 encodedDir = encodedFiles.folder;
 % initialize decoded image
-decodedImage=uint8(zeros(528,528));
+decodedImage=double(zeros(528,528));
 for cnt=1:nFiles
 %     Dimensions for DCT blocksize
     A=8;
@@ -26,7 +26,7 @@ for cnt=1:nFiles
         curZigZag = ComputeRunLengthR(curRL, A, B, imX, imY, 8);
         curTransformInv = ComputeZigZagR(curZigZag,A,B,imX,imY,8,8);
         curRecreatedImage = ComputeDCTR(curTransformInv,A,B,imX,imY);
-        curRecreatedImage = curRecreatedImage/max(max(curRecreatedImage));
+%         curRecreatedImage = curRecreatedImage/max(max(curRecreatedImage));
         curPaddedImage = double(padarray(curRecreatedImage, [W/2, W/2], 'replicate'));
         for j=1:N:imX
             for k=1:N:imY
